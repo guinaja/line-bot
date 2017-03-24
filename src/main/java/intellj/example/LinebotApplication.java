@@ -41,13 +41,14 @@ public class LinebotApplication {
         printMessageInfo(event);
         String replymessage = "";
         String message = event.getMessage().getText();
+        message = message.toLowerCase();
         if (message.indexOf("กุ่ย") > -1) {
             replymessage = "ฮ่องเต้เสด็จแล้ว";
         } else if (message.indexOf("เป้") > -1) {
             replymessage = "ไอ้ไข่หมุนอะนะ";
         } else if (message.indexOf("แต่") > -1 && message.indexOf("กู") > -1) {
             replymessage = "เรื่องของเมิงงงงงง";
-        } else if (message.indexOf("ิbot") > -1 || message.indexOf("บอท") > -1 || message.indexOf("chat") > -1 || message.indexOf("แซท") > -1) {
+        } else if (message.indexOf("ิbot") > -1 || message.indexOf("บอท") > -1 || message.indexOf("chat") > -1 || message.indexOf("siri") > -1 || message.indexOf("แซท") > -1) {
             replymessage = getRandomMessage(botReply);
         } else if (message.indexOf("สวัสดี") > -1 || message.indexOf("Hi") > -1 || message.indexOf("hello") > -1) {
             replymessage = getRandomMessage(hiReply);

@@ -25,10 +25,10 @@ public class LinebotApplication {
 		System.out.println("replyToken: " + event.getReplyToken());
 		String replymessage = "";
 		if (event.getMessage() != null){
-			if (event.getMessage().toString().indexOf("StickerMessageContent") > -1) {
+			String message = event.getMessage().getText();
+			if (message.length() == 0) {
 				replymessage = "บอกว่าอย่าส่งสติกเกอร์ เด๋วตบคว่ำ";
 			} else {
-				String message = event.getMessage().getText();
 				if (message.indexOf("กุ่ย") > -1) {
 					replymessage = "ฮ่องเต้เสด็จแล้ว";
 				} else if (message.indexOf("เป้") > -1) {
@@ -39,6 +39,8 @@ public class LinebotApplication {
 					replymessage = notMatchReply[n];
 				}
 			}
+		}else {
+			replymessage = "บอกว่าอย่าส่งสติกเกอร์ เด๋วตบคว่ำ";
 		}
 		return new TextMessage(replymessage);
 	}

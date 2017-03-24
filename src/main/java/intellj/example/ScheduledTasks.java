@@ -23,7 +23,7 @@ public class ScheduledTasks {
     public void autoMessage() {
         try {
             if (needToRunStartupMethod) {
-                TextMessage textMessage = new TextMessage("สวัสดี เรามาแล้วววววว เย้ เย้");
+                TextMessage textMessage = new TextMessage("สวัสดี");
                 PushMessage pushMessage = new PushMessage(lineGroupMOL, textMessage);
                 lineMessagingClient.pushMessage(pushMessage).get();
                 runOnceOnlyOnStartup();

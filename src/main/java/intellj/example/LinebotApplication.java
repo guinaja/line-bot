@@ -25,9 +25,12 @@ public class LinebotApplication {
         SpringApplication.run(LinebotApplication.class, args);
     }
 
+
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
+    private static String[] hiReply = {"สวัสดี", "ดีไร", "เพื่อนเล่นหรอ", "ไม่ว่างงเว้ยยย้", "ไม่ว่าง ยุ่งอยู่", "ใครอะ"};
     private static String[] loveReply = {"การแอบรักใครข้างเดียว..ก็เหมือน \"ผ้าอนามัย\"!.. เพราะทุ่มเทเท่าไหร่ก็ไม่มีวันไหลย้อนกลับ!!,,อั๊ยย่ะ!!??!...555" , "เจ้าชู้ เป็นการโปรโมท... แต่โสด กูอยู่ในกระแส!"};
     private static String[] liverpoolReply = {"เป็ดแดง","กาก","ก๊าบๆเลย"};
+
     private static String[] GReply = {"เตะรวมขาแม่มม", "เรื่องของกุ"};
     private static String[] NattReply = {"สวยฝุดๆเบย", "เรื่องของกุ", "เดวขึ้นโต๊ะแม่งเลย", "เสือก"};
 
@@ -40,6 +43,8 @@ public class LinebotApplication {
             replymessage = "ฮ่องเต้เสด็จแล้ว";
         } else if (message.indexOf("เป้") > -1) {
             replymessage = "ไอ้ไข่หมุนอะนะ";
+        } else if (message.indexOf("สวัสดี") > -1) {
+            replymessage = getRandomMessage(hiReply);
         } else if (message.indexOf("จี") > -1 || message.indexOf("G") > -1) {
             replymessage = getRandomMessage(GReply);
         } else if (message.indexOf("แนท") > -1 || message.indexOf("nat") > -1) {
@@ -48,7 +53,7 @@ public class LinebotApplication {
             replymessage = "เรื่องของเมิงงงงงง";
         } else if (message.indexOf("รัก") > -1 || message.indexOf("love") > -1) {
             replymessage = getRandomMessage(loveReply);
-        } else if (message.indexOf("ลิเวอร์พูล") > -1 || message.indexOf("ลิเวอ") > -1 || message.indexOf("liver") > -1) {
+        } else if (message.indexOf("ลิเวอร์พูล") > -1 || message.indexOf("ลิเวอ") > -1 || message.indexOf("liver") > -1 || message.indexOf("หงส์") > -1 || message.indexOf("พี่พล") > -1) {
             replymessage = getRandomMessage(liverpoolReply);
         } else {
             replymessage = getRandomMessage(notMatchReply);

@@ -1,5 +1,7 @@
 package intellj.example;
 
+import com.linecorp.bot.client.LineMessagingServiceBuilder;
+import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.ImageMessageContent;
@@ -7,40 +9,64 @@ import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.response.BotApiResponse;
+import com.linecorp.bot.spring.boot.LineBotAutoConfiguration;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import retrofit2.Response;
 
 import java.util.Random;
 
 @SpringBootApplication
 @LineMessageHandler
 public class LinebotApplication {
+
+    @Autowired
+    private LineBotAutoConfiguration lineBotAutoConfiguration;
     public static void main(String[] args) {
         SpringApplication.run(LinebotApplication.class, args);
+       // autoMessage();
     }
 
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
 
+    public static void autoMessage() throw Exception{
+        try {
+            TextMessage textMessage = new TextMessage("hello");
+            PushMessage pushMessage = new PushMessage( "<to>",  textMessage );
+            Response<BotApiResponse> response = LineMessagingServiceBuilder.create("<channel access token>").build().pushMessage(pushMessage).execute();
+            System.out.println(response.code() + " " + response.message());
+            lineBotAutoConfiguration.lineMessagingService().pushMessage(pushMessage);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
     @EventMapping
     public TextMessage handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
+        printMessageInfo(event);
         String replymessage = "บอกว่าอย่าส่งสติกเกอร์ เด๋วตบคว่ำ";
         return new TextMessage(replymessage);
     }
 
     @EventMapping
     public TextMessage handleImageMessageEvent(MessageEvent<ImageMessageContent> event) {
+        printMessageInfo(event);
         String replymessage = "รูปไรเนี่ย โป๊ป่าว";
         return new TextMessage(replymessage);
     }
     @EventMapping
     public TextMessage handleLocationMessageEvent(MessageEvent<LocationMessageContent> event) {
+        printMessageInfo(event);
         String replymessage = "ไปไหนกันหราาา ไปด้วยจิ";
         return new TextMessage(replymessage);
     }
     @EventMapping
     public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
+        printMessageInfo(event);
         String replymessage = "";
         String message = event.getMessage().getText();
         if (message.length() == 0) {
@@ -59,6 +85,11 @@ public class LinebotApplication {
             }
         }
         return new TextMessage(replymessage);
+    }
+    public void printMessageInfo(Event event){
+        System.out.println("event: " + event);
+        System.out.println("message: " + ((MessageEvent)event).getMessage());
+        System.out.println("replyToken: " + ((MessageEvent)event).getReplyToken());
     }
 
     @EventMapping

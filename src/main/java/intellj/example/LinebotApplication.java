@@ -51,20 +51,18 @@ public class LinebotApplication {
         printMessageInfo(event);
         String replymessage = "";
         String message = event.getMessage().getText();
-        if (message.length() == 0) {
-            replymessage = "บอกว่าอย่าส่งสติกเกอร์ เด๋วตบคว่ำ";
+        if (message.indexOf("กุ่ย") > -1) {
+            replymessage = "ฮ่องเต้เสด็จแล้ว";
+        } else if (message.indexOf("เป้") > -1) {
+            replymessage = "ไอ้ไข่หมุนอะนะ";
+        } else if (message.indexOf("จี") > -1) {
+            replymessage = "กูอินดี้ ไมอะ";
+        } else if (message.indexOf("แต่") > -1 && message.indexOf("กู") > -1) {
+            replymessage = "เรื่องของเมิงงงงงง";
         } else {
-            if (message.indexOf("กุ่ย") > -1) {
-                replymessage = "ฮ่องเต้เสด็จแล้ว";
-            } else if (message.indexOf("เป้") > -1) {
-                replymessage = "ไอ้ไข่หมุนอะนะ";
-            } else if (message.indexOf("แต่") > -1 && message.indexOf("กู") > -1) {
-                replymessage = "เรื่องของเมิงงงงงง";
-            } else {
-                Random rand = new Random();
-                int n = rand.nextInt(5);
-                replymessage = notMatchReply[n];
-            }
+            Random rand = new Random();
+            int n = rand.nextInt(5);
+            replymessage = notMatchReply[n];
         }
         return new TextMessage(replymessage);
     }

@@ -27,9 +27,6 @@ public class LinebotApplication {
 
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
 
-
-
-
     @EventMapping
     public TextMessage handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {
         printMessageInfo(event);

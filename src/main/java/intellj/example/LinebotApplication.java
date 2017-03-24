@@ -27,11 +27,11 @@ public class LinebotApplication {
 		String userId = event.getSource().getUserId();
 
 		String replymessage = "";
-		if ("U1e32ce96ac0156063a0b1626a4299c40".equals(userId)){
+		if (message != null && message.indexOf("กุ่ย") > -1){
 			replymessage = "ฮ่องเต้เสด็จแล้ว";
 		}else{
 			Random rand = new Random();
-			int n = rand.nextInt(5) + 1;
+			int n = rand.nextInt(5);
 			replymessage = autoReply[n];
 		}
 		return new TextMessage(replymessage);

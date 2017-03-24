@@ -17,16 +17,16 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import retrofit2.Response;
 
 import java.util.Random;
 
+@EnableConfigurationProperties(LineBotProperties.class)
 @SpringBootApplication
 @LineMessageHandler
 public class LinebotApplication {
 
-    @Autowired
-    private static LineBotAutoConfiguration lineBotAutoConfiguration;
     @Autowired
     private static LineBotProperties lineBotProperties;
     public static void main(String[] args) {
@@ -43,7 +43,6 @@ public class LinebotApplication {
             PushMessage pushMessage = new PushMessage( lineGroupMOL,  textMessage );
             Response<BotApiResponse> response = LineMessagingServiceBuilder.create(lineBotProperties.getChannelToken()).build().pushMessage(pushMessage).execute();
             System.out.println(response.code() + " " + response.message());
-            lineBotAutoConfiguration.lineMessagingService().pushMessage(pushMessage);
         }catch (Exception ex){
             ex.printStackTrace();
         }

@@ -17,22 +17,28 @@ public class LinebotApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LinebotApplication.class, args);
 	}
-	private static  String[] autoReply = {"ไม่ตลก","อะไรหยอออ","เพื่อนเล่นหรอ","งงอะเด้ งงอะเด้" ,"ไม่ว่าง ยุ่งอยู่"};
+	private static  String[] notMatchReply = {"ไม่ตลก","อะไรหยอออ","เพื่อนเล่นหรอ","งงอะเด้ งงอะเด้" ,"ไม่ว่าง ยุ่งอยู่" , "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
 	@EventMapping
 	public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
 		System.out.println("event: " + event);
 		System.out.println("message: " + event.getMessage());
 		System.out.println("replyToken: " + event.getReplyToken());
-		String message = event.getMessage().getText();
-		String userId = event.getSource().getUserId();
-
 		String replymessage = "";
-		if (message != null && message.indexOf("กุ่ย") > -1){
-			replymessage = "ฮ่องเต้เสด็จแล้ว";
-		}else{
-			Random rand = new Random();
-			int n = rand.nextInt(5);
-			replymessage = autoReply[n];
+		if (event.getMessage() != null){
+			if (event.getMessage().toString().indexOf("StickerMessageContent") > -1) {
+				replymessage = "บอกว่าอย่าส่งสติกเกอร์ เด๋วตบคว่ำ";
+			} else {
+				String message = event.getMessage().getText();
+				if (message.indexOf("กุ่ย") > -1) {
+					replymessage = "ฮ่องเต้เสด็จแล้ว";
+				} else if (message.indexOf("เป้") > -1) {
+					replymessage = "ไอ้ไข่หมุนอะนะ";
+				} else {
+					Random rand = new Random();
+					int n = rand.nextInt(5);
+					replymessage = notMatchReply[n];
+				}
+			}
 		}
 		return new TextMessage(replymessage);
 	}

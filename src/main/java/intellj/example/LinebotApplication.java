@@ -25,19 +25,19 @@ import java.util.Random;
 public class LinebotApplication {
 
     @Autowired
-    private LineBotAutoConfiguration lineBotAutoConfiguration;
+    private static LineBotAutoConfiguration lineBotAutoConfiguration;
     public static void main(String[] args) {
         SpringApplication.run(LinebotApplication.class, args);
        // autoMessage();
     }
 
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
-
-    public static void autoMessage() throw Exception{
+    private static String lineGroupMOL ="C455aca1ae0e0e8234956f9bffde7e37c";
+    public static void autoMessage(){
         try {
             TextMessage textMessage = new TextMessage("hello");
             PushMessage pushMessage = new PushMessage( "<to>",  textMessage );
-            Response<BotApiResponse> response = LineMessagingServiceBuilder.create("<channel access token>").build().pushMessage(pushMessage).execute();
+            Response<BotApiResponse> response = LineMessagingServiceBuilder.create(lineGroupMOL).build().pushMessage(pushMessage).execute();
             System.out.println(response.code() + " " + response.message());
             lineBotAutoConfiguration.lineMessagingService().pushMessage(pushMessage);
         }catch (Exception ex){

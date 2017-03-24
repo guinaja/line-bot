@@ -28,7 +28,7 @@ public class LinebotApplication {
     private static LineBotAutoConfiguration lineBotAutoConfiguration;
     public static void main(String[] args) {
         SpringApplication.run(LinebotApplication.class, args);
-       // autoMessage();
+        autoMessage();
     }
 
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};

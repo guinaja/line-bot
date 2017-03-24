@@ -35,7 +35,7 @@ public class LinebotApplication {
     private static String lineGroupMOL ="C455aca1ae0e0e8234956f9bffde7e37c";
     public static void autoMessage(){
         try {
-            TextMessage textMessage = new TextMessage("hello");
+            TextMessage textMessage = new TextMessage("สวัสดี เรามาแล้วววววว เย้ เย้");
             PushMessage pushMessage = new PushMessage( "<to>",  textMessage );
             Response<BotApiResponse> response = LineMessagingServiceBuilder.create(lineGroupMOL).build().pushMessage(pushMessage).execute();
             System.out.println(response.code() + " " + response.message());

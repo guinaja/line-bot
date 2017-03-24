@@ -1,5 +1,6 @@
 package intellj.example;
 
+import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.event.Event;
@@ -22,31 +23,19 @@ import retrofit2.Response;
 
 import java.util.Random;
 
-@EnableConfigurationProperties(LineBotProperties.class)
 @SpringBootApplication
 @LineMessageHandler
 public class LinebotApplication {
 
-    @Autowired
-    private static LineBotProperties lineBotProperties;
+
     public static void main(String[] args) {
         SpringApplication.run(LinebotApplication.class, args);
-        autoMessage();
     }
 
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
-    private static String lineGroupMOL ="C455aca1ae0e0e8234956f9bffde7e37c";
-    public static void autoMessage(){
-        try {
 
-            TextMessage textMessage = new TextMessage("สวัสดี เรามาแล้วววววว เย้ เย้");
-            PushMessage pushMessage = new PushMessage( lineGroupMOL,  textMessage );
-            Response<BotApiResponse> response = LineMessagingServiceBuilder.create(lineBotProperties.getChannelToken()).build().pushMessage(pushMessage).execute();
-            System.out.println(response.code() + " " + response.message());
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-    }
+
+
 
     @EventMapping
     public TextMessage handleStickerMessageEvent(MessageEvent<StickerMessageContent> event) {

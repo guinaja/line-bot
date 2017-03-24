@@ -11,6 +11,7 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.LineBotAutoConfiguration;
+import com.linecorp.bot.spring.boot.LineBotProperties;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class LinebotApplication {
 
     @Autowired
     private static LineBotAutoConfiguration lineBotAutoConfiguration;
+    @Autowired
+    private static LineBotProperties lineBotProperties;
     public static void main(String[] args) {
         SpringApplication.run(LinebotApplication.class, args);
         autoMessage();
@@ -35,9 +38,10 @@ public class LinebotApplication {
     private static String lineGroupMOL ="C455aca1ae0e0e8234956f9bffde7e37c";
     public static void autoMessage(){
         try {
+
             TextMessage textMessage = new TextMessage("สวัสดี เรามาแล้วววววว เย้ เย้");
-            PushMessage pushMessage = new PushMessage( "<to>",  textMessage );
-            Response<BotApiResponse> response = LineMessagingServiceBuilder.create(lineGroupMOL).build().pushMessage(pushMessage).execute();
+            PushMessage pushMessage = new PushMessage( lineGroupMOL,  textMessage );
+            Response<BotApiResponse> response = LineMessagingServiceBuilder.create(lineBotProperties.getChannelToken()).build().pushMessage(pushMessage).execute();
             System.out.println(response.code() + " " + response.message());
             lineBotAutoConfiguration.lineMessagingService().pushMessage(pushMessage);
         }catch (Exception ex){

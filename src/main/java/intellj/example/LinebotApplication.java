@@ -27,7 +27,9 @@ public class LinebotApplication {
 
 
     private static String[] notMatchReply = {"ไม่ตลก", "อะไรหยอออ", "เพื่อนเล่นหรอ", "งงอะเด้ งงอะเด้", "ไม่ว่าง ยุ่งอยู่", "มาเล่นกันเถอะ มาเล่นกันเถอะ"};
-    private static String[] hiReply = {"สวัสดี", "ดีไร", "เพื่อนเล่นหรอ", "ไม่ว่างงเว้ยยย้", "ไม่ว่าง ยุ่งอยู่", "ใครอะ"};
+    private static String[] hiReply = {"สวัสดี", "ดีไร", "เพื่อนเล่นหรอ", "ไม่ว่างงเว้ยยย", "ไม่ว่าง ยุ่งอยู่", "ใครอะ"};
+    private static String[] botReply = {"กุไม่ใช่ Siri", "Siri หรอ กากมาก", "เราก้อมีจิตใจนะ", "ไม่ใช่หุ่นยนต์นะ" };
+
     private static String[] loveReply = {"การแอบรักใครข้างเดียว..ก็เหมือน \"ผ้าอนามัย\"!.. เพราะทุ่มเทเท่าไหร่ก็ไม่มีวันไหลย้อนกลับ!!,,อั๊ยย่ะ!!??!...555" , "เจ้าชู้ เป็นการโปรโมท... แต่โสด กูอยู่ในกระแส!"};
     private static String[] liverpoolReply = {"เป็ดแดง","กาก","ก๊าบๆเลย"};
 
@@ -43,14 +45,16 @@ public class LinebotApplication {
             replymessage = "ฮ่องเต้เสด็จแล้ว";
         } else if (message.indexOf("เป้") > -1) {
             replymessage = "ไอ้ไข่หมุนอะนะ";
-        } else if (message.indexOf("สวัสดี") > -1) {
+        } else if (message.indexOf("แต่") > -1 && message.indexOf("กู") > -1) {
+            replymessage = "เรื่องของเมิงงงงงง";
+        } else if (message.indexOf("ิbot") > -1 || message.indexOf("บอท") > -1 || message.indexOf("chat") > -1 || message.indexOf("แซท") > -1) {
+            replymessage = getRandomMessage(botReply);
+        } else if (message.indexOf("สวัสดี") > -1 || message.indexOf("Hi") > -1 || message.indexOf("hello") > -1) {
             replymessage = getRandomMessage(hiReply);
         } else if (message.indexOf("จี") > -1 || message.indexOf("G") > -1) {
             replymessage = getRandomMessage(GReply);
         } else if (message.indexOf("แนท") > -1 || message.indexOf("nat") > -1) {
             replymessage = getRandomMessage(NattReply);
-        } else if (message.indexOf("แต่") > -1 && message.indexOf("กู") > -1) {
-            replymessage = "เรื่องของเมิงงงงงง";
         } else if (message.indexOf("รัก") > -1 || message.indexOf("love") > -1) {
             replymessage = getRandomMessage(loveReply);
         } else if (message.indexOf("ลิเวอร์พูล") > -1 || message.indexOf("ลิเวอ") > -1 || message.indexOf("liver") > -1 || message.indexOf("หงส์") > -1 || message.indexOf("พี่พล") > -1) {

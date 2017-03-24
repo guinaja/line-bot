@@ -17,7 +17,7 @@ public class ScheduledTasks {
     private LineMessagingClient lineMessagingClient;
     private static String lineGroupMOL = "C455aca1ae0e0e8234956f9bffde7e37c";
 
-    private static boolean needToRunStartupMethod = true;
+    private static boolean needToRunStartupMethod = false;
 
     @Scheduled(fixedDelay = 50000)
     public void autoMessage() {

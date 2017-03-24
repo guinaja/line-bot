@@ -50,6 +50,8 @@ public class LinebotApplication {
                 replymessage = "ฮ่องเต้เสด็จแล้ว";
             } else if (message.indexOf("เป้") > -1) {
                 replymessage = "ไอ้ไข่หมุนอะนะ";
+            } else if (message.indexOf("แต่") > -1 && message.indexOf("กู") > -1) {
+                replymessage = "เรื่องของเมิงงงงงง";
             } else {
                 Random rand = new Random();
                 int n = rand.nextInt(5);
